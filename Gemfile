@@ -52,6 +52,7 @@ group :development, :test do
 
   # Add RSpec as a test helper
   gem "rspec-rails", "~> 7.0"
+  gem "rubocop-rspec", require: false
 
   # Add FactoryBot as a test helper
   gem "factory_bot_rails"
