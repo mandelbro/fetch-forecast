@@ -14,6 +14,7 @@ RSpec.describe CachedForecast, type: :model do
   end
 
   it "validates the zip code uniqueness" do
+    create(:cached_forecast, zip_code: "12345")  # persist the conflict target
     cached_forecast_duplicate = build(:cached_forecast, zip_code: "12345")
     expect(cached_forecast_duplicate).to be_invalid
     expect(cached_forecast_duplicate.errors.full_messages).to include("Zip code has already been taken")
