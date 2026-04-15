@@ -21,7 +21,7 @@ module Forecasts
           expires_at: TTL_MINUTES.minutes.from_now
         },
         unique_by: :zip_code,
-        update_only: [:forecast_data, :expires_at]
+        update_only: [ :forecast_data, :expires_at ]
       )
 
       # Return the persisted row for the caller

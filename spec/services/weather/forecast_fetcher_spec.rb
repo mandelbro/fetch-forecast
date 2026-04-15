@@ -128,11 +128,11 @@ RSpec.describe Weather::ForecastFetcher do
       end
     end
 
-    include_examples "translates client error to :weather_service_unavailable",
+    it_behaves_like "translates client error to :weather_service_unavailable",
       Weather::OpenWeatherMapClient::UnauthorizedError, "bad API key"
-    include_examples "translates client error to :weather_service_unavailable",
+    it_behaves_like "translates client error to :weather_service_unavailable",
       Weather::OpenWeatherMapClient::RateLimitError, "rate limited"
-    include_examples "translates client error to :weather_service_unavailable",
+    it_behaves_like "translates client error to :weather_service_unavailable",
       Weather::OpenWeatherMapClient::ServiceError, "server error"
   end
 end
