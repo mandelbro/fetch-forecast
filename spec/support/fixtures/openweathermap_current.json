@@ -1,0 +1,22 @@
+{"coord": {"lon": -122.0449, "lat": 37.318},
+ "weather":
+  [{"id": 804, "main": "Clouds", "description": "overcast clouds", "icon": "04d"}],
+ "base": "stations",
+ "main":
+  {"temp": 65.52,
+   "feels_like": 64.26,
+   "temp_min": 65.52,
+   "temp_max": 65.52,
+   "pressure": 1019,
+   "humidity": 53,
+   "sea_level": 1019,
+   "grnd_level": 992},
+ "visibility": 10000,
+ "wind": {"speed": 7.45, "deg": 321, "gust": 7.78},
+ "clouds": {"all": 95},
+ "dt": 1776281301,
+ "sys": {"country": "US", "sunrise": 1776259993, "sunset": 1776307361},
+ "timezone": -25200,
+ "id": 0,
+ "name": "Cupertino",
+ "cod": 200}
