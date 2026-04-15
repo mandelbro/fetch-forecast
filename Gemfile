@@ -37,6 +37,10 @@ gem "kamal", require: false
 # Add HTTP asset caching/compression and X-Sendfile acceleration to Puma [https://github.com/basecamp/thruster/]
 gem "thruster", require: false
 
+# Add faraday and faraday-retry to handle HTTP requests
+gem "faraday"
+gem "faraday-retry"
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 
@@ -56,9 +60,17 @@ group :development, :test do
 
   # Add FactoryBot as a test helper
   gem "factory_bot_rails"
+
+  # Add dotenv to handle environment variables
+  gem "dotenv-rails"
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+end
+
+group :test do
+  # Add webmock to stub HTTP requests
+  gem "webmock"
 end
