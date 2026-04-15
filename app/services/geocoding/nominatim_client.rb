@@ -38,12 +38,12 @@ module Geocoding
 
     def search(address)
       response = @connection.get("/search", search_params(address))
-      result = response.body
-      if result.blank?
+      results = response.body
+      if results.blank?
         raise NotFoundError, "No results found for address: #{address}"
       end
 
-      result
+      results.first
     rescue Faraday::ServerError => e
       raise ServiceError, "Server error: #{e.message}"
     rescue Faraday::TooManyRequestsError
@@ -59,9 +59,7 @@ module Geocoding
         format: "json",
         limit: 1,
         addressdetails: 1,
-        polygon: 0,
-        polygon_geojson: 0,
-        polygon_svg: 0,
+        countrycodes: "us",
       }
     end
   end

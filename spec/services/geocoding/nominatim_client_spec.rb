@@ -17,9 +17,7 @@ RSpec.describe Geocoding::NominatimClient do
         format: "json",
         limit: 1,
         addressdetails: 1,
-        polygon: 0,
-        polygon_geojson: 0,
-        polygon_svg: 0
+        countrycodes: "us",
       }
     end
 

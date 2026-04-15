@@ -1,4 +1,4 @@
-{"place_id": 298110971,
+[{"place_id": 298110971,
  "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
  "osm_type": "node",
  "osm_id": 11334962646,
@@ -22,4 +22,4 @@
    "postcode": "94087",
    "country": "United States",
    "country_code": "us"},
- "boundingbox": ["37.3370685", "37.3371685", "-122.0108555", "-122.0107555"]}
+ "boundingbox": ["37.3370685", "37.3371685", "-122.0108555", "-122.0107555"]}]
