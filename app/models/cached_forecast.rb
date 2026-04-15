@@ -1,3 +1,21 @@
+# app/models/cached_forecast.rb
+# Purpose: Model for caching weather forecasts.
+#
+# Validations
+# - zip_code -> String
+# - forecast_data -> Forecast
+# - expires_at -> Time
+#
+# Scopes
+# - fresh -> Time.current > expires_at
+# - stale -> expires_at <= Time.current
+# - for_zip -> zip_code
+#
+# Predicates
+# - fresh? -> expires_at > Time.current
+# - stale? -> !fresh?
+# - age_seconds -> Time.current - fetched_at
+
 class CachedForecast < ApplicationRecord
   validates :zip_code, presence: true, format: { with: /\A\d{5}\z/, message: "must be 5 digits" }, uniqueness: true
   validates :forecast_data, presence: true

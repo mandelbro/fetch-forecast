@@ -1,3 +1,4 @@
+# app/models/cached_forecast.rb
 require 'rails_helper'
 
 RSpec.describe CachedForecast, type: :model do
