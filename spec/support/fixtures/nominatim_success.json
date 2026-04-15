@@ -1,0 +1,15 @@
+{"place_id": 301622468,
+ "licence": "Data © OpenStreetMap contributors, ODbL 1.0. http://osm.org/copyright",
+ "osm_type": "node",
+ "osm_id": 6820751785,
+ "lat": "37.3356514",
+ "lon": "-122.0140500",
+ "class": "highway",
+ "type": "bus_stop",
+ "place_rank": 30,
+ "importance": 5.9312581063508315e-05,
+ "addresstype": "highway",
+ "name": "Wolfe Road & Pruneridge Avenue",
+ "display_name":
+  "Wolfe Road & Pruneridge Avenue, 1, Apple Park Way, Cupertino, Santa Clara County, California, 94087, United States",
+ "boundingbox": ["37.3356014", "37.3357014", "-122.0141000", "-122.0140000"]}
