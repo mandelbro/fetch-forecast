@@ -1,4 +1,4 @@
-class CreateCachedForecasts < ActiveRecord::Migration[8.0]
+class CreateCachedForecasts < ActiveRecord::Migration[7.2]
   def change
     create_table :cached_forecasts do |t|
       t.jsonb :forecast_data, null: false
