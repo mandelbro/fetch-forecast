@@ -1,0 +1,1 @@
+# app/values/result.rb

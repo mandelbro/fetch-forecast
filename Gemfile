@@ -50,6 +50,9 @@ group :development, :test do
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
 
+  # Add RSpec as a test helper
+  gem "rspec-rails", "~> 7.0"
+
   # Add FactoryBot as a test helper
   gem "factory_bot_rails"
 end
@@ -57,5 +60,4 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
-  gem 'rspec-rails', '~> 7.0'
 end
