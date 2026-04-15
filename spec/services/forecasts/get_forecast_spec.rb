@@ -49,8 +49,8 @@ RSpec.describe Forecasts::GetForecast do
       end
 
       it "does not call the fetcher or write to cache" do
-        expect(forecast_fetcher).not_to receive(:call)
-        expect(cache_reader).not_to receive(:write)
+        expect(forecast_fetcher).not_to have_received(:call)
+        expect(cache_reader).not_to have_received(:write)
 
         orchestrator.call(raw_address)
       end
@@ -73,7 +73,7 @@ RSpec.describe Forecasts::GetForecast do
       end
 
       it "writes the forecast to the cache" do
-        expect(cache_reader).to receive(:write).with(zip, forecast.to_h)
+        expect(cache_reader).to have_received(:write).with(zip, forecast.to_h)
 
         orchestrator.call(raw_address)
       end
@@ -96,9 +96,9 @@ RSpec.describe Forecasts::GetForecast do
       end
 
       it "does not touch downstream services" do
-        expect(cache_reader).not_to receive(:read)
-        expect(forecast_fetcher).not_to receive(:call)
-        expect(cache_reader).not_to receive(:write)
+        expect(cache_reader).not_to have_received(:read)
+        expect(forecast_fetcher).not_to have_received(:call)
+        expect(cache_reader).not_to have_received(:write)
 
         orchestrator.call(raw_address)
       end
@@ -122,7 +122,7 @@ RSpec.describe Forecasts::GetForecast do
       end
 
       it "does not write to cache" do
-        expect(cache_reader).not_to receive(:write)
+        expect(cache_reader).not_to have_received(:write)
 
         orchestrator.call(raw_address)
       end
