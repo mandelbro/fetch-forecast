@@ -17,3 +17,6 @@ RSpec/ExampleLength:
 RSpec/MultipleExpectations:
   Enabled: true
   Max: 3
+RSpec/MultipleMemoizedHelpers:
+  Enabled: true
+  Max: 10
