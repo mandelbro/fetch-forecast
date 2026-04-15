@@ -37,8 +37,8 @@ module Geocoding
     end
 
     def search(address)
-      response = @connection.get("/search", { q: address, format: "json" })
-      result = response.body.first
+      response = @connection.get("/search", search_params(address))
+      result = response.body
       if result.blank?
         raise NotFoundError, "No results found for address: #{address}"
       end
@@ -50,6 +50,19 @@ module Geocoding
       raise RateLimitError, "Rate limit exceeded"
     rescue Faraday::TimeoutError, Faraday::ConnectionFailed
       raise ServiceError, "Timeout or connection failed"
+    end
+
+    private
+
+    def search_params(address)
+      { q: address,
+        format: "json",
+        limit: 1,
+        addressdetails: 1,
+        polygon: 0,
+        polygon_geojson: 0,
+        polygon_svg: 0,
+      }
     end
   end
 end

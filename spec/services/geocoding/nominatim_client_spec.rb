@@ -9,9 +9,19 @@ RSpec.describe Geocoding::NominatimClient do
   describe "#search" do
     let(:address) { "1 Apple Park Way, Cupertino, CA 95014, USA" }
     let(:url) { "https://nominatim.openstreetmap.org/search" }
-    let(:params) { { q: address, format: "json" } }
     let(:request_headers) { { "User-Agent" => ENV.fetch("NOMINATIM_USER_AGENT") } }
     let(:response_headers) { { "Content-Type" => "application/json" } }
+    let(:params) do
+      {
+        q: address,
+        format: "json",
+        limit: 1,
+        addressdetails: 1,
+        polygon: 0,
+        polygon_geojson: 0,
+        polygon_svg: 0
+      }
+    end
 
     it "returns the first result as a hash with the Nominatim response fields" do
       stub_request(:get, url)
@@ -21,7 +31,7 @@ RSpec.describe Geocoding::NominatimClient do
       result = client.search(address)
       expect(result).to be_a(Hash)
       expect(result).to include("place_id", "lat", "lon", "display_name", "address")
-      expect(result["place_id"]).to eq(123456)
+      expect(result["place_id"]).to eq(298110971)
     end
 
     it "raises a NotFoundError if no results are found" do
