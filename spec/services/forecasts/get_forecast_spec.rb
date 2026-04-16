@@ -22,6 +22,9 @@ RSpec.describe Forecasts::GetForecast do
   describe "#call" do
     before do
       allow(address_resolver).to receive(:call).with(raw_address).and_return(Result.success(zip))
+      allow(cache_reader).to receive(:read)
+      allow(cache_reader).to receive(:write)
+      allow(forecast_fetcher).to receive(:call)
     end
 
     context "with a valid address and cache hit" do
@@ -49,17 +52,16 @@ RSpec.describe Forecasts::GetForecast do
       end
 
       it "does not call the fetcher or write to cache" do
+        orchestrator.call(raw_address)
+
         expect(forecast_fetcher).not_to have_received(:call)
         expect(cache_reader).not_to have_received(:write)
-
-        orchestrator.call(raw_address)
       end
     end
 
     context "with a valid address and cache miss" do
       before do
         allow(cache_reader).to receive(:read).with(zip).and_return(nil)
-        allow(cache_reader).to receive(:write)
         allow(forecast_fetcher).to receive(:call).with(zip).and_return(Result.success(forecast))
       end
 
@@ -73,21 +75,18 @@ RSpec.describe Forecasts::GetForecast do
       end
 
       it "writes the forecast to the cache" do
-        expect(cache_reader).to have_received(:write).with(zip, forecast.to_h)
-
         orchestrator.call(raw_address)
+
+        expect(cache_reader).to have_received(:write).with(zip, forecast.to_h)
       end
     end
 
     context "when address resolution fails" do
-      let(:resolution_failure) do
-        Result.failure(
-          ForecastError.new(code: :address_not_resolved, user_message: "We couldn't find that address.")
-        )
-      end
-
       before do
-        allow(address_resolver).to receive(:call).with(raw_address).and_return(resolution_failure)
+        allow(address_resolver).to receive(:call).with(raw_address)
+          .and_return(Result.failure(
+            ForecastError.new(code: :address_not_resolved, user_message: "We couldn't find that address.")
+          ))
       end
 
       it "propagates the resolver's failure unchanged" do
@@ -96,24 +95,21 @@ RSpec.describe Forecasts::GetForecast do
       end
 
       it "does not touch downstream services" do
+        orchestrator.call(raw_address)
+
         expect(cache_reader).not_to have_received(:read)
         expect(forecast_fetcher).not_to have_received(:call)
         expect(cache_reader).not_to have_received(:write)
-
-        orchestrator.call(raw_address)
       end
     end
 
     context "when fetcher fails after a cache miss" do
-      let(:fetch_failure) do
-        Result.failure(
-          ForecastError.new(code: :weather_service_unavailable, user_message: "Service unavailable.")
-        )
-      end
-
       before do
         allow(cache_reader).to receive(:read).with(zip).and_return(nil)
-        allow(forecast_fetcher).to receive(:call).with(zip).and_return(fetch_failure)
+        allow(forecast_fetcher).to receive(:call).with(zip)
+          .and_return(Result.failure(
+            ForecastError.new(code: :weather_service_unavailable, user_message: "Service unavailable.")
+          ))
       end
 
       it "propagates the fetcher's failure unchanged" do
@@ -122,9 +118,9 @@ RSpec.describe Forecasts::GetForecast do
       end
 
       it "does not write to cache" do
-        expect(cache_reader).not_to have_received(:write)
-
         orchestrator.call(raw_address)
+
+        expect(cache_reader).not_to have_received(:write)
       end
     end
   end

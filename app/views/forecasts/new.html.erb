@@ -1,0 +1,21 @@
+<% content_for(:title, "Fetch Forecast") %>
+
+<main class="forecast-form">
+  <h1>Fetch Forecast</h1>
+  <p>Enter a US address to get the current weather and 5-day forecast.</p>
+
+  <% if flash[:alert] %>
+    <div class="alert" role="alert">
+      <%= flash[:alert] %>
+    </div>
+  <% end %>
+
+  <%= form_tag(forecast_path, method: :get, class: "address-form") do %>
+    <%= text_field_tag :address, @address,
+      placeholder: "e.g. 1 Apple Park Way, Cupertino, CA 95014",
+      autofocus: true,
+      class: "address-input",
+      "aria-label": "Address" %>
+    <%= submit_tag "Get Forecast", class: "submit-btn" %>
+  <% end %>
+</main>
