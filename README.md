@@ -12,7 +12,7 @@ A Rails 7.2 weather forecast service. Given a US address, returns current weathe
 - PostgreSQL (JSONB column for cached forecast payloads)
 - Faraday + faraday-retry for HTTP with automatic backoff on transient errors
 - Bootstrap 5 via CDN for UI
-- RSpec + WebMock + FactoryBot for testing (~60 examples, zero real network calls)
+- RSpec + WebMock + FactoryBot for testing
 - External APIs: OpenStreetMap Nominatim (geocoding), OpenWeatherMap (forecast)
 
 ## Setup
