@@ -20,3 +20,5 @@ RSpec/MultipleExpectations:
 RSpec/MultipleMemoizedHelpers:
   Enabled: true
   Max: 10
+RSpec/AnyInstance:
+  Enabled: false
