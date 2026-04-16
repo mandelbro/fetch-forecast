@@ -1,42 +1,76 @@
 <% content_for(:title, "Forecast for #{@response[:forecast].location_name}") %>
 <% forecast = @response[:forecast] %>
 
-<main class="forecast-result">
-  <h1><%= forecast.location_name %>, <%= forecast.country_code %></h1>
-  <p class="zip-code">ZIP: <%= forecast.zip_code %></p>
+<main class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-10 col-lg-8">
 
-  <% if @response[:cached] %>
-    <p class="cache-status">
-      Cached forecast &mdash; fetched <%= @response[:age_seconds] %> seconds ago
-    </p>
-  <% end %>
+      <div class="d-flex justify-content-between align-items-start mb-3 flex-wrap gap-2">
+        <div>
+          <h1 class="mb-0"><%= forecast.location_name %>, <%= forecast.country_code %></h1>
+          <p class="text-muted mb-0">ZIP: <%= forecast.zip_code %></p>
+        </div>
 
-  <section class="current-conditions">
-    <h2>Current Conditions</h2>
-    <p class="current-temp"><%= number_with_precision(forecast.current_temp, precision: 0) %>&deg;F</p>
-    <p>Feels like <%= number_with_precision(forecast.feels_like, precision: 0) %>&deg;F</p>
-    <p><%= forecast.conditions %></p>
-    <p>High: <%= number_with_precision(forecast.high, precision: 0) %>&deg;F &bull;
-       Low: <%= number_with_precision(forecast.low, precision: 0) %>&deg;F</p>
-  </section>
-
-  <% if forecast.extended.any? %>
-    <section class="extended-forecast">
-      <h2>5-Day Forecast</h2>
-      <div class="forecast-days">
-        <% forecast.extended.each do |day| %>
-          <div class="forecast-day">
-            <p class="date"><%= day["date"] %></p>
-            <p class="conditions"><%= day["conditions"] %></p>
-            <p class="temps">
-              <span class="high"><%= day["high"] %>&deg;</span> /
-              <span class="low"><%= day["low"] %>&deg;</span>
-            </p>
-          </div>
+        <% if @response[:cached] %>
+          <span class="badge text-bg-info">
+            Cached &middot; <%= time_ago_in_words(@response[:fetched_at]) %> ago
+          </span>
         <% end %>
       </div>
-    </section>
-  <% end %>
 
-  <p class="back-link"><%= link_to "Search another address", root_path %></p>
+      <div class="card mb-4">
+        <div class="card-body">
+          <h2 class="h5 text-muted">Current Conditions</h2>
+          <div class="d-flex align-items-baseline gap-3 mb-2">
+            <span class="display-3 fw-light">
+              <%= number_with_precision(forecast.current_temp, precision: 0) %>&deg;F
+            </span>
+            <span class="text-muted">
+              Feels like <%= number_with_precision(forecast.feels_like, precision: 0) %>&deg;F
+            </span>
+          </div>
+          <p class="mb-1"><%= forecast.conditions %></p>
+          <p class="text-muted small mb-0">
+            High: <%= number_with_precision(forecast.high, precision: 0) %>&deg;F &middot;
+            Low: <%= number_with_precision(forecast.low, precision: 0) %>&deg;F
+          </p>
+        </div>
+      </div>
+
+      <% if forecast.extended.present? %>
+        <div class="card mb-4">
+          <div class="card-body">
+            <h2 class="h5 text-muted mb-3">5-Day Forecast</h2>
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-6 g-2">
+              <% forecast.extended.each do |day| %>
+                <div class="col">
+                  <div class="border rounded p-2 text-center h-100">
+                    <p class="fw-semibold mb-1">
+                      <%= Date.parse(day["date"]).strftime("%a") %>
+                    </p>
+                    <p class="small text-muted mb-1">
+                      <%= Date.parse(day["date"]).strftime("%b %d") %>
+                    </p>
+                    <p class="small text-muted mb-2"><%= day["conditions"] %></p>
+                    <p class="mb-0">
+                      <span class="fw-semibold">
+                        <%= number_with_precision(day["high"], precision: 0) %>&deg;
+                      </span>
+                      <span class="text-muted">
+                        / <%= number_with_precision(day["low"], precision: 0) %>&deg;
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+
+      <%= link_to "← Search another address", root_path,
+            class: "btn btn-outline-secondary" %>
+
+    </div>
+  </div>
 </main>
