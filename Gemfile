@@ -55,7 +55,7 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 
   # Add RSpec as a test helper
-  gem "rspec-rails", "~> 7.0"
+  gem "rspec-rails", "~> 8.0"
   gem "rubocop-rspec", require: false
 
   # Add FactoryBot as a test helper
