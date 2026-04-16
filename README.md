@@ -1,13 +1,10 @@
 # Fetch Forecast
 
-A Rails 7.2 weather forecast service. Given a US address, returns current
-conditions and a 5-day forecast with daily high/low. Responses are cached by
-ZIP code for 30 minutes; a visible indicator shows whether the result is fresh
-from the weather API or served from cache.
+A Rails 7.2 weather forecast service. Given a US address, returns current weather conditions and a 5-day forecast with daily high/low. Responses are cached by ZIP code for 30 minutes; a visible indicator shows whether the result is fresh from the weather API or served from cache.
 
 ## Live demo
 
-[https://fetch-forecast.onrender.com/](#)
+[https://fetch-forecast.onrender.com/](https://fetch-forecast.onrender.com/)
 
 ## Tech stack
 
