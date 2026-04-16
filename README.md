@@ -67,6 +67,7 @@ All external HTTP calls are stubbed with WebMock. Tests never hit the real Nomin
 ```mermaid
 ---
 config:
+  theme: "neo"
   look: handDrawn
 ---
 
