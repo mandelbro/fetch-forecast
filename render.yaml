@@ -1,0 +1,29 @@
+databases:
+  - name: fetch-forecast-db
+    databaseName: fetch_forecast_production
+    plan: free
+
+services:
+  - type: web
+    name: fetch-forecast
+    runtime: ruby
+    plan: free
+    buildCommand: "./bin/render-build.sh"
+    startCommand: "bundle exec rails server -p $PORT"
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: fetch-forecast-db
+          property: connectionString
+      - key: RAILS_ENV
+        value: production
+      - key: RAILS_LOG_TO_STDOUT
+        value: "true"
+      - key: RAILS_SERVE_STATIC_FILES
+        value: "true"
+      - key: NOMINATIM_USER_AGENT
+        sync: false         # ← set manually in dashboard
+      - key: OPENWEATHERMAP_API_KEY
+        sync: false         # ← set manually in dashboard
+      - key: SECRET_KEY_BASE
+        generateValue: true # ← Render generates a random secret
