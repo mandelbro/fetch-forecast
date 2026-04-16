@@ -1,6 +1,5 @@
 # Orchestrates the full forecast flow: address resolution → cache lookup → API fetch → cache write.
-# Composes AddressResolver, CacheReader, and ForecastFetcher. No HTTP calls or DB transactions
-# of its own — each collaborator handles its own I/O atomically.
+# Composes AddressResolver, CacheReader, and ForecastFetcher.
 #
 # Dependencies (all injectable for testing):
 # - Geocoding::AddressResolver
