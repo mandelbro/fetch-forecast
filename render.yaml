@@ -7,8 +7,9 @@ services:
   - type: web
     name: fetch-forecast
     runtime: ruby
-    plan: free
+    plan: starter
     buildCommand: "./bin/render-build.sh"
+    preDeployCommand: "bundle exec rails db:migrate"
     startCommand: "bundle exec rails server -p $PORT"
     envVars:
       - key: DATABASE_URL
